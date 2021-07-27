@@ -13,10 +13,47 @@ class MyBlog extends React.Component {
       isValidSurname: false,
       isValidEmail: false,
       isValidPassword: false,
+      // users: localStorage.getItem('testUsers')
+      //   ? JSON.parse(localStorage.getItem('testUsers'))
+      //   : [],
+      // // testInput: '',
+      // testsInputs: { name: '', surname: '', email: '' , password: ''},
     };
   }
 
+  // componentDidUpdate() {
+  //   console.log('777', this.state.users);
+  // }
+
+  // createUser = (name,surname,email,password) => {
+  //   const oldUsers = this.state.users;
+  //   const newUser = {
+  //     name,
+  //     surname,
+  //     email,
+  //     password
+  //   };
+  //   let users = [...oldUsers, newUser];
+  //   localStorage.setItem('testUsers', JSON.stringify(users));
+  //   this.setState({
+  //     users,
+  //   });
+  // };
+
+  // testUserInputHandler = (e) => {
+  //   if (e.target.value === '') {
+  //     return;
+  //   }
+  //   this.setState({
+  //     testInputs: e.target.value,
+  //   });
+  // };
+
   handleChangeName = (event) => {
+    // if(event.target.value ===''){
+    //   return
+    // }
+
     this.setState({
       name: event.target.value,
     });
@@ -34,6 +71,10 @@ class MyBlog extends React.Component {
   };
 
   handleChangeSurname = (event) => {
+    // if(event.target.value ===''){
+    //   return
+    // }
+
     this.setState({
       surname: event.target.value,
     });
@@ -51,6 +92,10 @@ class MyBlog extends React.Component {
   };
 
   handleChangeEmail = (event) => {
+    // if(event.target.value ===''){
+    //   return
+    // }
+
     this.setState({
       email: event.target.value,
     });
@@ -70,8 +115,12 @@ class MyBlog extends React.Component {
   };
 
   handleChangePassword = (event) => {
+    // if(event.target.value ===''){
+    //   return
+    // }
+
     this.setState({
-      password: event.target.value,
+      password: event.target.value, //password
     });
     const passwordValidator =
       /^(?=.*[0-9])(?=.*[!@#$%^&*?])[a-zA-Z0-9!@#$%^&*?]{6,16}$/;
@@ -87,6 +136,17 @@ class MyBlog extends React.Component {
     }
   };
 
+  saveToLocal = () => {
+    localStorage.setItem('user', 
+        JSON.stringify({
+        name: this.state.name,
+        surname: this.state.surname,
+        email: this.state.email,
+        password: this.state.password,
+      }),
+    );
+  };
+
   render() {
     const validUser =
       this.state.isValidName &&
@@ -95,6 +155,12 @@ class MyBlog extends React.Component {
       this.state.isValidPassword;
     return (
       <div className={styles.blogContainer}>
+        {/* <label>Enter Name:</label>
+        <input onChange={(e) => this.testUserInputHandler(e)} />
+        <button onClick={() => this.createUser(this.state.testInput)}>
+          LogIn777
+        </button> */}
+
         <form action="">
           <p className={styles.registrationText}>Registration</p>
           <input
@@ -119,7 +185,12 @@ class MyBlog extends React.Component {
             className={styles.inputField}
             placeholder="Password"
           />
-          <button disabled={!validUser} className={styles.signInBtn}>
+          <button
+            disabled={!validUser}
+            className={styles.signInBtn}
+            onClick={this.saveToLocal}
+            // onClick={() => this.createUser(this.state.testInputs)}
+          >
             Sign in
           </button>
         </form>
