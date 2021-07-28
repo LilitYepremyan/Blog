@@ -14,27 +14,25 @@ import img3 from '../../Pages/images/flower3.jpg';
 import SpellcheckIcon from '@material-ui/icons/Spellcheck';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { Box } from '@material-ui/core';
-
+import CommentIcon from '@material-ui/icons/Comment';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+  },
+  IconButton: {
+    display: 'flex',
+    justifyContent: 'spaceAround',
+    alignItems: 'center',
   },
   media: {
     height: 0,
     paddingTop: '56.25%',
   },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
   avatar: {
     backgroundColor: purple[100],
+  },
+  btn: {
+    width: '30px',
   },
 }));
 
@@ -52,11 +50,14 @@ export default function RecipeReviewCard() {
           }
           action={
             <>
-              <IconButton aria-label="edit">
-                <SpellcheckIcon />
+              <IconButton aria-label="edit" className={classes.btn}>
+                <SpellcheckIcon fontSize="small" />
               </IconButton>
-              <IconButton aria-label="delete">
-                <DeleteOutlineIcon />
+              <IconButton aria-label="delete" className={classes.btn}>
+                <DeleteOutlineIcon fontSize="small" />
+              </IconButton>
+              <IconButton aria-label="comment" className={classes.btn}>
+                <CommentIcon fontSize="small" />
               </IconButton>
             </>
           }
@@ -87,14 +88,17 @@ export default function RecipeReviewCard() {
             </Avatar>
           }
           action={
-            <>
-              <IconButton aria-label="edit">
-                <SpellcheckIcon />
+            <div>
+              <IconButton aria-label="edit" className={classes.btn}>
+                <SpellcheckIcon fontSize="small" />
               </IconButton>
-              <IconButton aria-label="delete">
-                <DeleteOutlineIcon />
+              <IconButton aria-label="delete" className={classes.btn}>
+                <DeleteOutlineIcon fontSize="small" />
               </IconButton>
-            </>
+              <IconButton aria-label="comment" className={classes.btn}>
+                <CommentIcon fontSize="small" />
+              </IconButton>
+            </div>
           }
           title="Paeonia ..."
         />
@@ -124,11 +128,14 @@ export default function RecipeReviewCard() {
           }
           action={
             <>
-              <IconButton aria-label="edit">
+              <IconButton aria-label="edit" className={classes.btn}>
                 <SpellcheckIcon />
               </IconButton>
-              <IconButton aria-label="delete">
+              <IconButton aria-label="delete" className={classes.btn}>
                 <DeleteOutlineIcon />
+              </IconButton>
+              <IconButton aria-label="comment" className={classes.btn}>
+                <CommentIcon fontSize="small" justifyContent="spaceAround" />
               </IconButton>
             </>
           }

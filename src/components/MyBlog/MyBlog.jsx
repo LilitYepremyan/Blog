@@ -1,6 +1,6 @@
 import React from 'react';
+import { getId } from '../Helper/helper';
 import styles from './MyBlog.module.css';
-
 class MyBlog extends React.Component {
   constructor(props) {
     super(props);
@@ -13,47 +13,10 @@ class MyBlog extends React.Component {
       isValidSurname: false,
       isValidEmail: false,
       isValidPassword: false,
-      // users: localStorage.getItem('testUsers')
-      //   ? JSON.parse(localStorage.getItem('testUsers'))
-      //   : [],
-      // // testInput: '',
-      // testsInputs: { name: '', surname: '', email: '' , password: ''},
     };
   }
 
-  // componentDidUpdate() {
-  //   console.log('777', this.state.users);
-  // }
-
-  // createUser = (name,surname,email,password) => {
-  //   const oldUsers = this.state.users;
-  //   const newUser = {
-  //     name,
-  //     surname,
-  //     email,
-  //     password
-  //   };
-  //   let users = [...oldUsers, newUser];
-  //   localStorage.setItem('testUsers', JSON.stringify(users));
-  //   this.setState({
-  //     users,
-  //   });
-  // };
-
-  // testUserInputHandler = (e) => {
-  //   if (e.target.value === '') {
-  //     return;
-  //   }
-  //   this.setState({
-  //     testInputs: e.target.value,
-  //   });
-  // };
-
   handleChangeName = (event) => {
-    // if(event.target.value ===''){
-    //   return
-    // }
-
     this.setState({
       name: event.target.value,
     });
@@ -71,10 +34,6 @@ class MyBlog extends React.Component {
   };
 
   handleChangeSurname = (event) => {
-    // if(event.target.value ===''){
-    //   return
-    // }
-
     this.setState({
       surname: event.target.value,
     });
@@ -92,10 +51,6 @@ class MyBlog extends React.Component {
   };
 
   handleChangeEmail = (event) => {
-    // if(event.target.value ===''){
-    //   return
-    // }
-
     this.setState({
       email: event.target.value,
     });
@@ -115,12 +70,8 @@ class MyBlog extends React.Component {
   };
 
   handleChangePassword = (event) => {
-    // if(event.target.value ===''){
-    //   return
-    // }
-
     this.setState({
-      password: event.target.value, //password
+      password: event.target.value,
     });
     const passwordValidator =
       /^(?=.*[0-9])(?=.*[!@#$%^&*?])[a-zA-Z0-9!@#$%^&*?]{6,16}$/;
@@ -136,15 +87,31 @@ class MyBlog extends React.Component {
     }
   };
 
-  saveToLocal = () => {
-    localStorage.setItem('user', 
-        JSON.stringify({
+  setLocalStorage = () => {
+    let user = [];
+    if (localStorage.user) {
+      user = JSON.parse(localStorage.user);
+      user.push({
+        id: getId(user),
         name: this.state.name,
         surname: this.state.surname,
         email: this.state.email,
         password: this.state.password,
-      }),
-    );
+      });
+      localStorage.user = JSON.stringify(user);
+    } else {
+      user = [
+        {
+          id: getId([]),
+          name: this.state.name,
+          surname: this.state.surname,
+          email: this.state.email,
+          password: this.state.password,
+        },
+      ];
+      localStorage.user = JSON.stringify(user);
+    }
+    window.location = '/';
   };
 
   render() {
@@ -155,45 +122,37 @@ class MyBlog extends React.Component {
       this.state.isValidPassword;
     return (
       <div className={styles.blogContainer}>
-        {/* <label>Enter Name:</label>
-        <input onChange={(e) => this.testUserInputHandler(e)} />
-        <button onClick={() => this.createUser(this.state.testInput)}>
-          LogIn777
-        </button> */}
+        <p className={styles.registrationText}>Registration</p>
+        <input
+          onChange={this.handleChangeName}
+          className={styles.inputField}
+          placeholder="Name"
+        />
+        <input
+          onChange={this.handleChangeSurname}
+          className={styles.inputField}
+          placeholder="Surname"
+        />
+        <input
+          type="email"
+          onChange={this.handleChangeEmail}
+          className={styles.inputField}
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          onChange={this.handleChangePassword}
+          className={styles.inputField}
+          placeholder="Password"
+        />
 
-        <form action="">
-          <p className={styles.registrationText}>Registration</p>
-          <input
-            onChange={this.handleChangeName}
-            className={styles.inputField}
-            placeholder="Name"
-          />
-          <input
-            onChange={this.handleChangeSurname}
-            className={styles.inputField}
-            placeholder="Surname"
-          />
-          <input
-            type="email"
-            onChange={this.handleChangeEmail}
-            className={styles.inputField}
-            placeholder="Email"
-          />
-          <input
-            type="password"
-            onChange={this.handleChangePassword}
-            className={styles.inputField}
-            placeholder="Password"
-          />
-          <button
-            disabled={!validUser}
-            className={styles.signInBtn}
-            onClick={this.saveToLocal}
-            // onClick={() => this.createUser(this.state.testInputs)}
-          >
-            Sign in
-          </button>
-        </form>
+        <button
+          disabled={!validUser}
+          className={styles.signInBtn}
+          onClick={() => this.setLocalStorage()}
+        >
+          Sign in
+        </button>
       </div>
     );
   }

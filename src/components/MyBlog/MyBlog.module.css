@@ -10,10 +10,6 @@ input {
   width: 300px;
 }
 
-button {
-  display: block;
-  margin-bottom: 30px;
-}
 .registrationText {
   font-size: 40px;
   font-weight: 500;
@@ -22,7 +18,7 @@ button {
 }
 
 .signInBtn {
-  width: 100%;
+  width: 305px;
 }
 
 .inputField {

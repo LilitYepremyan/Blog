@@ -48,30 +48,47 @@ class Login extends React.Component {
       });
     }
   };
+  handleSubmit = () => {
+    const user = JSON.parse(localStorage.user);
+    const result = user.filter((el) => {
+      return (
+        el.email === this.state.email && el.password === this.state.password
+      );
+    })[0];
+    if (result.length === 0) {
+      throw new Error('No such account exists');
+    } else {
+      window.location = '/';
+    }
+  };
 
   render() {
     const validUser = this.state.isValidEmail && this.state.isValidPassword;
     return (
       <div className={styles.blogContainer}>
-        <form action="">
-          <p className={styles.registrationText}>Log in</p>
+        <p className={styles.registrationText}>Log in</p>
 
-          <input
-            type="email"
-            onChange={this.handleChangeEmail}
-            className={styles.inputField}
-            placeholder="Email"
-          />
-          <input
-            type="password"
-            onChange={this.handleChangePassword}
-            className={styles.inputField}
-            placeholder="Password"
-          />
-          <button disabled={!validUser} className={styles.signInBtn}>
-            Sign in
-          </button>
-        </form>
+        <input
+          type="email"
+          onChange={this.handleChangeEmail}
+          className={styles.inputField}
+          placeholder="Email"
+          value={this.state.email}
+        />
+        <input
+          type="password"
+          onChange={this.handleChangePassword}
+          className={styles.inputField}
+          placeholder="Password"
+          value={this.state.password}
+        />
+        <button
+          disabled={!validUser}
+          className={styles.signInBtn}
+          onClick={this.handleSubmit}
+        >
+          Sign in
+        </button>
       </div>
     );
   }
