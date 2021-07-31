@@ -17,7 +17,7 @@ class Login extends React.Component {
       email: event.target.value,
     });
     const emailValidator =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const validEmail = emailValidator.test(event.target.value);
 
     if (validEmail) {
@@ -36,7 +36,8 @@ class Login extends React.Component {
       password: event.target.value,
     });
     const passwordValidator =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*?])[a-zA-Z0-9!@#$%^&*?]{6,16}$/;
+    /^(?=.*[0-9])(?=.*[!@#$%^&*?])[a-zA-Z0-9!@#$%^&*?]{6,16}$/;
+
     const validPassword = passwordValidator.test(event.target.value);
     if (validPassword) {
       this.setState({
@@ -48,6 +49,7 @@ class Login extends React.Component {
       });
     }
   };
+
   handleSubmit = () => {
     const user = JSON.parse(localStorage.user);
     const result = user.filter((el) => {

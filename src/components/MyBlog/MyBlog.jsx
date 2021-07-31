@@ -9,6 +9,7 @@ class MyBlog extends React.Component {
       surname: '',
       email: '',
       password: '',
+      isExistEmail: '',
       isValidName: false,
       isValidSurname: false,
       isValidEmail: false,
@@ -54,6 +55,19 @@ class MyBlog extends React.Component {
     this.setState({
       email: event.target.value,
     });
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : []
+    for (let i = 0; i < user.length; i++) {
+      if (user[i].email === event.target.value) {
+        this.setState({
+          isExistEmail: 'This email is already taken',
+        })
+        break
+      } else {
+        this.setState({
+          isExistEmail: '',
+        });
+      }
+    }
     const emailValidator =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const validEmail = emailValidator.test(event.target.value);
@@ -91,6 +105,7 @@ class MyBlog extends React.Component {
     let user = [];
     if (localStorage.user) {
       user = JSON.parse(localStorage.user);
+
       user.push({
         id: getId(user),
         name: this.state.name,
@@ -112,6 +127,20 @@ class MyBlog extends React.Component {
       localStorage.user = JSON.stringify(user);
     }
     window.location = '/';
+  };
+
+  handleSubmit = () => {
+    const user = JSON.parse(localStorage.user);
+    const result = user.filter((el) => {
+      return (
+        el.email === this.state.email && el.password === this.state.password
+      );
+    })[0];
+    if (result.length === 0) {
+      throw new Error('No such account exists');
+    } else {
+      window.location = '/';
+    }
   };
 
   render() {
@@ -139,6 +168,7 @@ class MyBlog extends React.Component {
           className={styles.inputField}
           placeholder="Email"
         />
+        <p>{this.state.isExistEmail}</p>
         <input
           type="password"
           onChange={this.handleChangePassword}
