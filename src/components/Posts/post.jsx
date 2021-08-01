@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({title,post}) {
   const classes = useStyles();
 
   return (
@@ -59,7 +59,7 @@ export default function RecipeReviewCard() {
               </IconButton>
             </>
           }
-          title="Hydrangea ..."
+          title={title}
         />
         <CardMedia
           className={classes.media}
@@ -68,13 +68,7 @@ export default function RecipeReviewCard() {
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            Hydrangea (/haɪˈdreɪndʒiə/) common names hydrangea or hortensia, is
-            a genus of 70–75 species of flowering plants native to Asia and the
-            Americas. By far the greatest species diversity is in eastern Asia,
-            notably China, Korea, and Japan. Most are shrubs 1 to 3 meters tall,
-            but some are small trees, and others lianas reaching up to 30 m (98
-            ft) by climbing up trees. They can be either deciduous or evergreen,
-            though the widely cultivated temperate species are all deciduous.
+            {post}
           </Typography>
         </CardContent>
       </Card>

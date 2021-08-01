@@ -14,6 +14,7 @@ class MyBlog extends React.Component {
       isValidSurname: false,
       isValidEmail: false,
       isValidPassword: false,
+      isLoged: false,
     };
   }
 
@@ -55,13 +56,15 @@ class MyBlog extends React.Component {
     this.setState({
       email: event.target.value,
     });
-    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : []
+    const user = localStorage.getItem('user')
+      ? JSON.parse(localStorage.getItem('user'))
+      : [];
     for (let i = 0; i < user.length; i++) {
       if (user[i].email === event.target.value) {
         this.setState({
           isExistEmail: 'This email is already taken',
-        })
-        break
+        });
+        break;
       } else {
         this.setState({
           isExistEmail: '',
@@ -102,6 +105,9 @@ class MyBlog extends React.Component {
   };
 
   setLocalStorage = () => {
+    this.setState({
+      isLoged: true,
+    });
     let user = [];
     if (localStorage.user) {
       user = JSON.parse(localStorage.user);
@@ -112,6 +118,7 @@ class MyBlog extends React.Component {
         surname: this.state.surname,
         email: this.state.email,
         password: this.state.password,
+        isLoged: true
       });
       localStorage.user = JSON.stringify(user);
     } else {
@@ -122,6 +129,7 @@ class MyBlog extends React.Component {
           surname: this.state.surname,
           email: this.state.email,
           password: this.state.password,
+          isLoged: true
         },
       ];
       localStorage.user = JSON.stringify(user);
